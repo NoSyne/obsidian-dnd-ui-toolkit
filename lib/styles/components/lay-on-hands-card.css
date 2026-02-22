@@ -1,0 +1,95 @@
+/* Lay on Hands Card Styles */
+.lay-on-hands-card {
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    gap: var(--std-gap);
+    padding: 0.75rem;
+    width: 100%;
+}
+
+.lay-on-hands-card p {
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+}
+
+.lay-on-hands-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.lay-on-hands-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-text-bright);
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+}
+
+.lay-on-hands-max {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+}
+
+.lay-on-hands-progress-container {
+    width: 100%;
+    height: 0.5rem;
+    background-color: var(--color-bg-secondary);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    margin: 0.3rem 0;
+}
+
+.lay-on-hands-progress-bar {
+    height: 100%;
+    background-color: var(--color-border-active);
+    transition: width 0.3s ease;
+}
+
+.lay-on-hands-controls {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    margin: 0.3rem 0;
+    flex-wrap: wrap;
+}
+
+.lay-on-hands-input {
+    width: 5rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-active);
+    border-radius: 0.25rem;
+    color: var(--color-text-primary);
+    padding: 0.3rem;
+    text-align: center;
+}
+
+.lay-on-hands-button {
+    flex: 0.8;
+    min-width: fit-content;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: 0.25rem;
+    color: var(--color-text-primary);
+    padding: 0.3rem 0.4rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.lay-on-hands-button:hover {
+    background-color: var(--color-bg-hover);
+}
+
+.lay-on-hands-heal {
+    border-color: var(--color-accent-teal);
+    color: var(--color-accent-teal);
+}
+
+.lay-on-hands-cure {
+    border-color: var(--color-accent-purple);
+    color: var(--color-accent-purple);
+}

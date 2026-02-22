@@ -66,6 +66,12 @@ export type HealthBlock = {
   reset_on?: string | string[]; // Event type(s) that trigger a reset, defaults to 'long-rest'
 };
 
+export type LayOnHandsBlock = {
+  state_key: string;
+  points: number | string;
+  reset_on?: string | string[];
+}
+
 export type ResetConfig = {
   event: string;
   amount?: number; // If undefined, resets completely
@@ -86,6 +92,10 @@ export type ParsedHealthBlock = Omit<HealthBlock, "reset_on" | "hitdice"> & {
   reset_on?: ResetConfig[]; // Normalized to always be an array of objects
   hitdice?: HitDice[]; // Normalized to always be an array
 };
+
+export type ParsedLayOnHandsBlock = Omit<LayOnHandsBlock, "reset_on"> & {
+  reset_on?: ResetConfig[]; // Normalized to always be an array of objects
+}
 
 export type BadgeItem = {
   reverse?: boolean;

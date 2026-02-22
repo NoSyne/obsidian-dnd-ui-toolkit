@@ -6,6 +6,7 @@ import { HealthView } from "lib/views/HealthView";
 import { ConsumableView } from "lib/views/ConsumableView";
 import { BadgesView, StatsView } from "lib/views/BadgesView";
 import { InitiativeView } from "lib/views/InitiativeView";
+import { LayOnHandsView } from "lib/views/LayOnHandsView";
 import { SpellComponentsView } from "lib/views/SpellComponentsView";
 import { EventButtonsView } from "lib/views/EventButtonsView";
 import { KeyValueStore } from "lib/services/kv/kv";
@@ -88,6 +89,7 @@ export default class DndUIToolkitPlugin extends Plugin {
       new HealthView(app, kv),
       new ConsumableView(app, kv),
       new InitiativeView(app, kv),
+      new LayOnHandsView(app, kv),
     ];
 
     for (const view of views) {
