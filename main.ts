@@ -1,4 +1,5 @@
-import { App, Plugin, PluginSettingTab, Setting } from "obsidian";
+import "lib/styles/index.css";
+import { App, Platform, Plugin, PluginSettingTab, Setting } from "obsidian";
 import { AbilityScoreView } from "lib/views/AbilityScoreView";
 import { BaseView } from "lib/views/BaseView";
 import { SkillsView } from "lib/views/SkillsView";
@@ -9,6 +10,8 @@ import { InitiativeView } from "lib/views/InitiativeView";
 import { LayOnHandsView } from "lib/views/LayOnHandsView";
 import { SpellComponentsView } from "lib/views/SpellComponentsView";
 import { EventButtonsView } from "lib/views/EventButtonsView";
+import { RawAbilityView } from "lib/views/RawAbilityView";
+import { RawSkillsView } from "lib/views/RawSkillsView";
 import { KeyValueStore } from "lib/services/kv/kv";
 import { JsonDataStore } from "./lib/services/kv/local-file-store";
 import { DEFAULT_SETTINGS, DndUIToolkitSettings } from "settings";
@@ -24,7 +27,7 @@ export default class DndUIToolkitPlugin extends Plugin {
     const apply = (root: HTMLElement) => {
       Object.entries(this.settings).forEach(([key, value]) => {
         if (key.startsWith("color")) {
-          const cssVarName = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+          const cssVarName = `--dnd-ui-${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
           root.style.setProperty(cssVarName, value as string);
         }
       });
@@ -36,13 +39,15 @@ export default class DndUIToolkitPlugin extends Plugin {
       apply(root);
     }
 
-    // Apply to all open windows
-    this.app.workspace.iterateAllLeaves((leaf) => {
-      const windowDoc = leaf.view.containerEl.ownerDocument;
-      if (windowDoc) {
-        apply(windowDoc.documentElement);
-      }
-    });
+    // Apply to all open windows (desktop only - multi-window not available on mobile)
+    if (Platform.isDesktop) {
+      this.app.workspace.iterateAllLeaves((leaf) => {
+        const windowDoc = leaf.view.containerEl.ownerDocument;
+        if (windowDoc) {
+          apply(windowDoc.documentElement);
+        }
+      });
+    }
   }
 
   async onload() {
@@ -51,13 +56,14 @@ export default class DndUIToolkitPlugin extends Plugin {
     // Apply color settings on load
     this.applyColorSettings();
 
-    // Listen for new windows and apply settings to them
-    this.registerEvent(
-      this.app.workspace.on("window-open", () => {
-        // Use setTimeout to ensure the window is fully initialized
-        setTimeout(() => this.applyColorSettings(), 100);
-      })
-    );
+    // Listen for new windows and apply settings to them (desktop only)
+    if (Platform.isDesktop) {
+      this.registerEvent(
+        this.app.workspace.on("window-open", () => {
+          setTimeout(() => this.applyColorSettings(), 100);
+        })
+      );
+    }
 
     // Initialize the JsonDataStore with the configured path
     this.initDataStore();
@@ -84,6 +90,8 @@ export default class DndUIToolkitPlugin extends Plugin {
       new BadgesView(app),
       new SpellComponentsView(app),
       new EventButtonsView(app),
+      new RawAbilityView(app),
+      new RawSkillsView(app),
 
       // Dynamic/Stateful
       new HealthView(app, kv),
