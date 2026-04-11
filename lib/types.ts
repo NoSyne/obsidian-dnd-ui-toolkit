@@ -160,24 +160,6 @@ export type Ability = {
   savingThrow: number;
 };
 
-export type PoolBlock = {
-  label: string;
-  state_key: string;
-  points: number | string; // Allow string for template support
-  reset_on?: string | string[]; // Event type(s) that trigger a reset, defaults to 'long-rest'
-};
-
-// Before template resolution — hitdice values may still be template strings
-export type UnresolvedPoolBlock = Omit<PoolBlock, "reset_on"> & {
-  reset_on?: ResetConfig[];
-};
-
-// After template resolution — all values are numbers
-export type ParsedPoolBlock = Omit<PoolBlock, "reset_on" | "points"> & {
-  points: number | string;
-  reset_on?: ResetConfig[];
-};
-
 export type EventButtonItem = {
   name: string;
   value: string | { event: string; amount: number }; // The event type that gets dispatched, or object with event and amount

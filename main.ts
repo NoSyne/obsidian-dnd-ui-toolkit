@@ -11,7 +11,6 @@ import { SpellComponentsView } from "lib/views/SpellComponentsView";
 import { EventButtonsView } from "lib/views/EventButtonsView";
 import { RawAbilityView } from "lib/views/RawAbilityView";
 import { RawSkillsView } from "lib/views/RawSkillsView";
-import { PoolConsumableView } from "lib/views/PoolConsumableView";
 import { KeyValueStore } from "lib/services/kv/kv";
 import { JsonDataStore } from "./lib/services/kv/local-file-store";
 import { DEFAULT_SETTINGS, DndUIToolkitSettings } from "settings";
@@ -97,7 +96,6 @@ export default class DndUIToolkitPlugin extends Plugin {
       new HealthView(app, kv),
       new ConsumableView(app, kv),
       new InitiativeView(app, kv),
-      new PoolConsumableView(app, kv),
     ];
 
     for (const view of views) {
